@@ -14,7 +14,18 @@ function renderTodos(){
         /*document.createTextNode() vai criar um elemento e retorná-lo para que você o utilize da forma que quiser.*/
         var todoText = document.createTextNode(todo);
 
+        var linkElement = document.createElement('a');
+        var linkText = document.createTextNode('Excluir')
+
+        linkElement.appendChild(linkText);
+        linkElement.setAttribute('href',"#");
+
+        var pos = todos.indexOf(todo);
+        linkElement.setAttribute('onclick', 'deleteTodo('+ pos +')');
+
         todoElement.appendChild(todoText);
+        todoElement.appendChild(linkElement);
+
         listElement.appendChild(todoElement);
 
     }
@@ -30,4 +41,9 @@ function addTodo(){
     renderTodos();
 }
 
-buttonElement.addEventListener('click',addTodo);
+buttonElement.onclick = addTodo;
+
+function deleteTodo(pos){
+    todos.splice(pos, 1);
+    renderTodos();
+}
